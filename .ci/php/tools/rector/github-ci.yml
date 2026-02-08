@@ -1,0 +1,14 @@
+name: PHP Rector
+
+on:
+  pull_request:
+    paths:
+      - 'src/**'
+      - '.ci/php/**'
+
+jobs:
+  rector:
+    uses: ./.ci/php/github-ci.yml
+    with:
+      script: 'rector:dry'
+      before_script: 'composer install --no-interaction --ignore-platform-reqs --no-scripts'

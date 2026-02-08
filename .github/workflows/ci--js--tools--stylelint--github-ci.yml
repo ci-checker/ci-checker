@@ -1,0 +1,14 @@
+# GENERATED FROM .ci/js/tools/stylelint/github-ci.yml — DO NOT EDIT
+name: JS Stylelint
+
+on:
+  pull_request:
+    paths:
+      - 'assets/**'
+      - '.ci/js/**'
+
+jobs:
+  stylelint:
+    uses: ./.github/workflows/ci--js--github-ci.yml
+    with:
+      script: 'stylelint'

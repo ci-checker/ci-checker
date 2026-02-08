@@ -1,0 +1,12 @@
+include:
+  - local: '/.ci/js/gitlab-ci.yml'
+  - local: '/.ci/php/gitlab-ci.yml'
+  - local: '/.ci/yamllint/gitlab-ci.yml'
+
+cache:
+  paths:
+    - '**/node_modules'
+    - '**/vendor'
+
+stages:
+  - test

@@ -1,0 +1,45 @@
+name: CI JS Launcher
+
+on:
+  workflow_call:
+    inputs:
+      script:
+        required: true
+        type: string
+        description: "The npm script to run in .ci/js"
+      before_script:
+        required: false
+        type: string
+        default: ""
+        description: "Script to run before npm install in .ci/js"
+
+env:
+  CI_JS_DIRECTORY: '.ci/js'
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    container:
+      image: node:20-slim
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Before script
+        if: ${{ inputs.before_script != '' }}
+        run: ${{ inputs.before_script }}
+
+      - name: Cache npm dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles(format('{0}/package-lock.json', env.CI_JS_DIRECTORY)) }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install CI dependencies
+        run: npm install --prefix ${{ env.CI_JS_DIRECTORY }} --no-fund --no-audit --unsafe-perm --no-progress
+
+      - name: Run Tool
+        run: npm run --prefix ${{ env.CI_JS_DIRECTORY }} --workspaces -if-present ${{ inputs.script }}

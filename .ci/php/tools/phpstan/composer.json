@@ -1,0 +1,16 @@
+{
+    "name": "ci-checker/php-phpstan",
+    "require-dev": {
+        "phpstan/extension-installer": "^1.4",
+        "phpstan/phpstan": "^2.0"
+    },
+    "scripts": {
+        "phpstan:analyse": "phpstan analyse -c ./tools/phpstan/config.neon --autoload-file=../../vendor/autoload.php --ansi",
+        "phpstan": [
+            "@phpstan:analyse"
+        ],
+        "phpstan:ci": [
+            "@phpstan:analyse --error-format raw --no-progress --memory-limit 2G"
+        ]
+    }
+}

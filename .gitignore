@@ -1,0 +1,6 @@
+composer.lock
+package-lock.json
+vendor
+.ci/php/composer.lock
+.ci/js/package-lock.json
+.idea

@@ -1,0 +1,12 @@
+extends:
+  - eslint:recommended
+  - airbnb-base
+
+rules:
+  max-len:
+    - error
+    - code: 130
+
+parser: '@babel/eslint-parser'
+parserOptions:
+  requireConfigFile: false

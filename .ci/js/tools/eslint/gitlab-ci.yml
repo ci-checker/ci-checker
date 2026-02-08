@@ -1,0 +1,11 @@
+eslint:
+    extends: .ci-js-script-launcher
+    rules:
+        - !reference [.ci-js-script-launcher, rules]
+        - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+          changes: [ 'assets/**/*' ]
+    before_script:
+        # Install projet npm packages
+        - npm install --no-fund --no-audit
+    variables:
+        SCRIPT: 'eslint'

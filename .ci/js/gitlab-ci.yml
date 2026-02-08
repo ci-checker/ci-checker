@@ -1,0 +1,19 @@
+variables:
+    CI_JS_IMAGE: 'node' # Image PHP à utiliser
+    CI_JS_DIRECTORY: '.ci/js' # Chemin vers ci-checker
+
+.ci-js-script-launcher:
+    stage: test
+    interruptible: true
+    image:
+        name: '$CI_JS_IMAGE'
+        entrypoint: [""]
+    allow_failure: false
+    rules:
+        -   if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+            changes: [ '$CI_JS_DIRECTORY/**/*' ]
+    script:
+        - 'npm --prefix $CI_JS_DIRECTORY install --no-fund --no-audit --unsafe-perm --no-progress'
+        - 'npm run --prefix $CI_JS_DIRECTORY --workspaces -if-present $SCRIPT'
+
+include: '.ci/js/tools/**/gitlab-ci.yml'

@@ -1,0 +1,14 @@
+# GENERATED FROM .ci/php/tools/twig-cs-fixer/github-ci.yml — DO NOT EDIT
+name: PHP Twig CS Fixer
+
+on:
+  pull_request:
+    paths:
+      - 'templates/**'
+      - '.ci/php/**'
+
+jobs:
+  twig-cs-fixer:
+    uses: ./.github/workflows/ci--php--github-ci.yml
+    with:
+      script: 'twig-cs-fixer'

@@ -1,0 +1,6 @@
+{
+    "name": "@ci-checker/js",
+    "workspaces": [
+        "./tools/*"
+    ]
+}

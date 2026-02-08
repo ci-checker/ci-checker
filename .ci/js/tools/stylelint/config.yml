@@ -1,0 +1,7 @@
+ignoreFiles: []
+extends: stylelint-config-standard
+plugins:
+    - stylelint-scss
+rules:
+    max-nesting-depth: 4
+    indentation: 2

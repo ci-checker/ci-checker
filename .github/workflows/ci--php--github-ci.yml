@@ -1,0 +1,46 @@
+# GENERATED FROM .ci/php/github-ci.yml — DO NOT EDIT
+name: CI PHP Launcher
+
+on:
+  workflow_call:
+    inputs:
+      script:
+        required: true
+        type: string
+        description: "The composer script to run in .ci/php"
+      before_script:
+        required: false
+        type: string
+        default: ""
+        description: "Script to run before composer install in .ci/php"
+
+env:
+  CI_PHP_DIRECTORY: '.ci/php'
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    container:
+      image: composer/composer
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Before script
+        if: ${{ inputs.before_script != '' }}
+        run: ${{ inputs.before_script }}
+
+      - name: Cache Composer dependencies
+        uses: actions/cache@v4
+        with:
+          path: ${{ env.CI_PHP_DIRECTORY }}/vendor
+          key: ${{ runner.os }}-composer-${{ hashFiles(format('{0}/composer.lock', env.CI_PHP_DIRECTORY)) }}
+          restore-keys: |
+            ${{ runner.os }}-composer-
+
+      - name: Install CI dependencies
+        run: composer install --working-dir=${{ env.CI_PHP_DIRECTORY }} --no-interaction --no-progress
+
+      - name: Run Tool
+        run: composer run-script --working-dir=${{ env.CI_PHP_DIRECTORY }} ${{ inputs.script }}
