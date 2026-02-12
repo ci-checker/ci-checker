@@ -1,0 +1,14 @@
+name: PHP PHPStan
+
+on:
+  pull_request:
+    paths:
+      - 'src/**'
+      - '.ci/php/**'
+
+jobs:
+  phpstan:
+    uses: ./.ci/php/github-ci.yml
+    with:
+      script: 'phpstan:ci'
+      before_script: 'composer install --no-interaction --ignore-platform-reqs --no-scripts'

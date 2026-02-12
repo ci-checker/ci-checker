@@ -1,0 +1,14 @@
+name: PHP Composer Require Checker
+
+on:
+  pull_request:
+    paths:
+      - 'composer.json'
+      - '.ci/php/**'
+
+jobs:
+  composer-require-checker:
+    uses: ./.ci/php/github-ci.yml
+    with:
+      script: 'composer-require-checker'
+      before_script: 'composer install --no-interaction --ignore-platform-reqs --no-scripts'

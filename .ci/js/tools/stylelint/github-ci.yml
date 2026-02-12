@@ -1,0 +1,13 @@
+name: JS Stylelint
+
+on:
+  pull_request:
+    paths:
+      - 'assets/**'
+      - '.ci/js/**'
+
+jobs:
+  stylelint:
+    uses: ./.ci/js/github-ci.yml
+    with:
+      script: 'stylelint'

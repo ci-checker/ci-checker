@@ -1,0 +1,17 @@
+variables:
+    YAMLLINT_VERSION: 1.26
+    YAMLLINT_DIR: .ci/yamllint
+
+yamllint:
+    stage: test
+    image:
+        name: cytopia/yamllint:$YAMLLINT_VERSION
+        entrypoint: ["/bin/ash", "-c"]
+    script:
+        - yamllint -f colored . --config-file "$YAMLLINT_DIR/config.yml"  --strict
+    rules:
+        -   if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+            changes: [ '$YAMLLINT_DIR/**/*' ]
+        -   if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+            changes: [ '**/*.yml', '**/*.yaml' ]
+    allow_failure: false

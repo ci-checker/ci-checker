@@ -1,0 +1,12 @@
+{
+    "name": "@ci-checker/js-eslint",
+    "devDependencies": {
+        "@babel/eslint-parser": "^7.14.7",
+        "eslint": "^7.32.0",
+        "eslint-config-airbnb-base": "^14.2.1"
+    },
+    "scripts": {
+        "eslint": "eslint '../../../../assets/**/*.{js,vue}' --max-warnings 0 --config ./config.yml",
+        "eslint:fix": "npm run eslint -- --fix"
+    }
+}

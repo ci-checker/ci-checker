@@ -1,0 +1,13 @@
+name: PHP CS Fixer
+
+on:
+  pull_request:
+    paths:
+      - 'src/**'
+      - '.ci/php/**'
+
+jobs:
+  php-cs-fixer:
+    uses: ./.ci/php/github-ci.yml
+    with:
+      script: 'php-cs-fixer:dry'

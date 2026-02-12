@@ -1,0 +1,12 @@
+{
+    "name": "ci-checker/test",
+    "description": "Test",
+    "require": {
+        "constant-exposure/constant-exposure-bundle": "^2.2.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    }
+}

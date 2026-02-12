@@ -1,0 +1,13 @@
+composer-require-checker:
+    extends: .ci-php-script-launcher
+    rules:
+        - !reference [.ci-php-script-launcher, rules]
+        -   if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+            changes:
+                - 'composer.json'
+                - 'src/**/*.php'
+    before_script:
+        # Install project composer dependencies
+        -   composer install --no-interaction --ignore-platform-reqs --no-scripts
+    variables:
+        SCRIPT: 'composer-require-checker'

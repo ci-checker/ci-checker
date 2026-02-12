@@ -1,0 +1,14 @@
+name: JS ESLint
+
+on:
+  pull_request:
+    paths:
+      - 'assets/**'
+      - '.ci/js/**'
+
+jobs:
+  eslint:
+    uses: ./.ci/js/github-ci.yml
+    with:
+      script: 'eslint'
+      before_script: 'npm install --no-fund --no-audit'

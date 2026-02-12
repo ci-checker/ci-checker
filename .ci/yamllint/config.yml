@@ -1,0 +1,23 @@
+extends: default
+ignore: |
+  node_modules
+  vendor
+  .ci
+  .gitlab-ci.yml
+
+rules:
+  document-start: disable
+  line-length:
+    max: 200
+  brackets:
+    min-spaces-inside: 0
+    max-spaces-inside: 2
+  braces:
+    min-spaces-inside: 0
+    max-spaces-inside: 2
+  hyphens:
+    max-spaces-after: 4
+  comments: disable
+  comments-indentation: disable
+  truthy:
+    check-keys: false

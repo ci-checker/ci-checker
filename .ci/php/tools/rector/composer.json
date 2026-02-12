@@ -1,0 +1,10 @@
+{
+    "name": "ci-checker/php-rector",
+    "require-dev": {
+        "rector/rector": "^2.0"
+    },
+    "scripts": {
+        "rector:dry": "@rector --dry-run",
+        "rector": "rector --config=./tools/rector/config.php --autoload-file=../../vendor/autoload.php --clear-cache"
+    }
+}

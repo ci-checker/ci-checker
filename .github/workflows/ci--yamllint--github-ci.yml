@@ -1,0 +1,26 @@
+# GENERATED FROM .ci/yamllint/github-ci.yml — DO NOT EDIT
+name: YAML Lint
+
+
+env:
+  YAMLLINT_DIR: .ci/yamllint
+
+on:
+  pull_request:
+    paths:
+      - '.ci/yamllint/**'
+      - '**/*.yml'
+      - '**/*.yaml'
+
+jobs:
+  yamllint:
+    runs-on: ubuntu-latest
+    container:
+      image: cytopia/yamllint:1.26
+      options: --entrypoint ""
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run yamllint
+        run: yamllint -f colored . --config-file ${{ env.YAMLLINT_DIR }}/config.yml --strict

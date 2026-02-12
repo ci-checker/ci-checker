@@ -1,0 +1,23 @@
+{
+    "name": "ci-checker/php",
+    "description": "Tools for CI",
+    "version": "1.0.0",
+    "scripts": {
+        "pre-command-run": "@putenv PROJECT_DIR=../.."
+    },
+    "config": {
+        "allow-plugins": true
+    },
+    "require": {
+        "php": "8.5.*",
+        "wikimedia/composer-merge-plugin": "^2.1"
+    },
+    "extra": {
+        "merge-plugin": {
+            "require": [
+                "tools/**/composer.json"
+            ],
+            "merge-scripts": true
+        }
+    }
+}

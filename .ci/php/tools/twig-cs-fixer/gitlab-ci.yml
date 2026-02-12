@@ -1,0 +1,8 @@
+twig-cs-fixer:
+    extends: .ci-php-script-launcher
+    rules:
+        - !reference [.ci-php-script-launcher, rules]
+        -   if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+            changes: [ 'templates/**/*.twig' ]
+    variables:
+        SCRIPT: 'twig-cs-fixer'

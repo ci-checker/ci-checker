@@ -1,0 +1,9 @@
+{
+    "name": "ci-checker/php-composer-require-checker",
+    "require-dev": {
+        "maglnet/composer-require-checker": "^4.17"
+    },
+    "scripts": {
+        "composer-require-checker": "composer-require-checker check $PROJECT_DIR/composer.json"
+    }
+}

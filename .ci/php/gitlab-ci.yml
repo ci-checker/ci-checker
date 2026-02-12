@@ -1,0 +1,18 @@
+variables:
+    CI_PHP_IMAGE: 'composer/composer' # Image PHP à utiliser
+    CI_PHP_DIRECTORY: '.ci/php'
+
+.ci-php-script-launcher:
+    stage: test
+    interruptible: true
+    image:
+        name: '$CI_PHP_IMAGE'
+        entrypoint: [""]
+    allow_failure: false
+    rules:
+        -   changes: [ '$CI_PHP_DIRECTORY/**/*' ]
+    script:
+        - 'composer --working-dir=$CI_PHP_DIRECTORY install'
+        - 'composer --working-dir=$CI_PHP_DIRECTORY run-script $SCRIPT'
+
+include: '.ci/php/tools/**/gitlab-ci.yml'

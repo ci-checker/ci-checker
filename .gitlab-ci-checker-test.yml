@@ -1,0 +1,29 @@
+include:
+  - local: '/.gitlab-ci.yml'
+
+# PHP
+composer-require-checker:
+  rules: [when: always]
+
+php-cs-fixer:
+  rules: [when: always]
+
+phpstan:
+  rules: [when: always]
+
+rector:
+  rules: [when: always]
+
+twig-cs-fixer:
+  rules: [when: always]
+
+# JS
+eslint:
+  rules: [when: always]
+
+stylelint:
+  rules: [when: always]
+
+# Other
+yamllint:
+  rules: [when: always]
