@@ -20,7 +20,7 @@ jobs:
   check:
     runs-on: ubuntu-latest
     container:
-      image: node:20-slim
+      image: node:24-slim
 
     steps:
       - name: Checkout code

@@ -2,43 +2,20 @@
 
 Copy one folder. Get a full quality pipeline — locally and in CI — with zero surprises.
 
+![demo](docs/demo.gif)
+
 ## The Problem
 
-Setting up code quality tools on a project means juggling multiple concerns: installing tools, configuring them, writing CI pipelines, and hoping your local checks match what runs in CI. Tools often end up mixed into your project's dependencies, creating version conflicts and bloated lock files.
+Every project needs code quality checks. But setting them up means repeating the same work: installing tools, pinning versions, writing CI config, and hoping local runs match what happens in CI. Across multiple projects or repositories, this friction compounds — configs drift, versions diverge, and the pipeline becomes a source of uncertainty rather than confidence.
 
 ## The Solution
 
-CI Checker is a self-contained `.ci` folder that you drop into any project. It brings:
+CI Checker is a self-contained `.ci` folder you drop into any project. Quality tools live entirely inside it, isolated from your project's own dependencies.
 
-- **Isolated dependencies** — Quality tools live in `.ci/`, completely separate from your project's `composer.json` and `package.json`. No version conflicts, no bloat.
-- **Same result everywhere** — Tools run under the same conditions locally and in CI (same versions, same configuration). No more "works on my machine" surprises.
-- **GitLab CI + GitHub Actions, out of the box** — Each tool ships with pre-configured pipeline definitions for both platforms. No YAML to write from scratch.
-- **Pick what you need** — Copy the folder, remove the tools you don't use, done.
-
-## Available Tools
-
-### PHP
-
-| Tool | Purpose |
-|------|---------|
-| [PHPStan](.ci/php/tools/phpstan/) | Static analysis — catches bugs, wrong types, dead code |
-| [PHP-CS-Fixer](.ci/php/tools/php-cs-fixer/) | Automatic code formatting to follow PHP standards |
-| [Rector](.ci/php/tools/rector/) | Automated refactoring and PHP version upgrades |
-| [Twig CS Fixer](.ci/php/tools/twig-cs-fixer/) | Enforces coding standards on Twig templates |
-| [Composer Require Checker](.ci/php/tools/composer-require-checker/) | Detects missing dependencies in `composer.json` |
-
-### JavaScript
-
-| Tool | Purpose |
-|------|---------|
-| [ESLint](.ci/js/tools/eslint/) | Static analysis for JavaScript code |
-| [Stylelint](.ci/js/tools/stylelint/) | Linting for CSS/SCSS stylesheets |
-
-### YAML
-
-| Tool | Purpose |
-|------|---------|
-| [yamllint](.ci/yamllint/) | Validates YAML file syntax and conventions |
+- **Isolated dependencies** — Tools are installed in `.ci/`, separate from `composer.json` and `package.json`. No version conflicts, no lock file pollution.
+- **Same result everywhere** — Local and CI runs use identical versions and configuration. What passes locally will pass in CI.
+- **GitLab CI + GitHub Actions, ready to use** — Each tool ships with pre-configured pipeline definitions for both platforms.
+- **Pick what you need** — Delete the tools you won't use. Each one is fully self-contained.
 
 ## Quick Start
 
@@ -77,15 +54,31 @@ make phpstan  # Run a specific tool
 make eslint
 ```
 
-You can also define a convenience target in your project's `Makefile` to run all the tools you selected at once:
+Or define a combined target in your project's `Makefile`:
 
 ```makefile
 check: phpstan php-cs-fixer rector-fix eslint stylelint yamllint
 ```
 
-## How It Works
+## Folder Structure
 
-Each tool provides a consistent set of files:
+```
+.ci/
+├── php/
+│   └── tools/
+│       ├── phpstan/
+│       ├── php-cs-fixer/
+│       ├── rector/
+│       ├── twig-cs-fixer/
+│       └── composer-require-checker/
+├── js/
+│   └── tools/
+│       ├── eslint/
+│       └── stylelint/
+└── yamllint/
+```
+
+Each tool follows the same layout:
 
 ```
 README.md       # Documentation
@@ -96,6 +89,31 @@ config.*        # Tool-specific configuration
 ```
 
 See the [detailed documentation](.ci/README.md) for more information.
+
+## Available Tools
+
+### PHP
+
+| Tool | Purpose |
+|------|---------|
+| [PHPStan](.ci/php/tools/phpstan/) | Static analysis — catches bugs, wrong types, dead code |
+| [PHP-CS-Fixer](.ci/php/tools/php-cs-fixer/) | Automatic code formatting to follow PHP standards |
+| [Rector](.ci/php/tools/rector/) | Automated refactoring and PHP version upgrades |
+| [Twig CS Fixer](.ci/php/tools/twig-cs-fixer/) | Enforces coding standards on Twig templates |
+| [Composer Require Checker](.ci/php/tools/composer-require-checker/) | Detects missing dependencies in `composer.json` |
+
+### JavaScript
+
+| Tool | Purpose |
+|------|---------|
+| [ESLint](.ci/js/tools/eslint/) | Static analysis for JavaScript code |
+| [Stylelint](.ci/js/tools/stylelint/) | Linting for CSS/SCSS stylesheets |
+
+### YAML
+
+| Tool | Purpose |
+|------|---------|
+| [yamllint](.ci/yamllint/) | Validates YAML file syntax and conventions |
 
 ## Prerequisites
 
