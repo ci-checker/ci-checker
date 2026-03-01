@@ -1,5 +1,5 @@
 variables:
-    CI_JS_IMAGE: 'node' # Image PHP à utiliser
+    CI_JS_IMAGE: 'node:24-slim' # Image PHP à utiliser
     CI_JS_DIRECTORY: '.ci/js' # Chemin vers ci-checker
 
 .ci-js-script-launcher:

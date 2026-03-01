@@ -20,7 +20,7 @@ jobs:
   check:
     runs-on: ubuntu-latest
     container:
-      image: composer/composer
+      image: composer/composer:2
 
     steps:
       - name: Checkout code

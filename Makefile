@@ -2,10 +2,10 @@ ifndef VERBOSE
 .SILENT:
 endif
 
-CI_PHP_EXEC=docker run -it --rm -v ./:/app -w /app -u 1000:1000 composer/composer  bash -c
+CI_PHP_EXEC=docker run -it --rm -v ./:/app -w /app -u 1000:1000 composer/composer:2  bash -c
 include .ci/php/Makefile
 
-CI_JS_EXEC=docker run -it --rm -v ./:/app -w /app -u 1000:1000 node bash -c
+CI_JS_EXEC=docker run -it --rm -v ./:/app -w /app -u 1000:1000 node:24-slim bash -c
 include .ci/js/Makefile
 
 include .ci/yamllint/Makefile

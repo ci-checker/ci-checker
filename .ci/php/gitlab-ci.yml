@@ -1,5 +1,5 @@
 variables:
-    CI_PHP_IMAGE: 'composer/composer' # Image PHP à utiliser
+    CI_PHP_IMAGE: 'composer/composer:2' # Image PHP à utiliser
     CI_PHP_DIRECTORY: '.ci/php'
 
 .ci-php-script-launcher:
